@@ -1,0 +1,84 @@
+# this is a simple C-language-based BNF format
+# given by HUST 
+
+<programme> ::= <external-definition-list>
+
+<external-definition-list> ::= <external-definition><external-definition-list> 
+								| <external-definition>
+
+<external-definition> ::= <external-var-definition> | <function-definition>
+
+<external-var-definition> ::= <type-specifier> <identifier-list>
+
+<type-specifier> ::= void
+					| char 
+					| short 
+					| unsigned short
+					| signed short 
+					| int 
+					| unsigned int
+					| signed int
+					| long 
+					| unsigned long
+					| signed long
+					| long long
+					| float
+					| double
+
+<storage-type-specifier> ::= const 
+							| auto
+							| static 
+							| volatile
+
+<identifier-list> ::= <identifier>,<identifier-list> | <identifier>
+
+<function-definition> ::= <type-specifier> <identifier>(<argument-list>) <complex-sentence>
+
+<argument-list> ::= <argument>, <argument-list> | <argument>
+
+<argument> ::= <type-specifier> <identifier>
+
+<complex-sentence> ::= {<local-var-def-list><sentence-list>}
+
+<local-var-def-list> ::= <local-var-def><local-var-def-list> | <local-var-def>
+
+<sentence-list> ::= <sentence><sentence-list> | <sentence>
+
+<sentence> ::= <expression>; | return <expression>;
+			| if (<expression>) <complex-sentence> 
+			| if (<expression>) <complex-sentence> else <complex-sentence>
+			| while (<expression>) <complex-sentence>
+			| do <complex-sentence> while (<expression>);
+
+<expression> ::= <unary-operator><expression> 
+				| <expression><binary-operator><expression>
+				| <expression>?<expression>:<expression>
+				| <identifier>
+				| <const-expression>
+
+<unary-operator> ::= & 
+					| *
+					| +
+					| -
+					| ~
+					| !
+
+<binary-operator> ::= + 
+					| - 
+					| * 
+					| /
+					| %
+					| =
+					| ==
+					| <
+					| <=
+					| >
+					| >=
+					| +=
+					| -= 
+					| *=
+					| /=
+
+<preprocesser> ::= #<whatever>\n
+<comment> ::= //<whatever> 
+			| /*<whatever>*/

@@ -1,0 +1,66 @@
+/* -*- C++ -*- */
+
+/* 
+	author: Yiming Liu
+	fsm: finite sate machine, used to tell the type of 
+		certain token
+*/
+
+#ifndef __FSM_H
+#define __FSM_H
+
+#include <string>
+#include <vector>
+#include <iostream>
+
+/* 
+	class FiniteStateMachine will decide the type of next token
+	from the given file stream. 
+	It reads char by char from the file stream, and use a state
+	machine to decide the best match type. 
+*/ 
+class fsm {
+public: 
+	typedef enum {
+		ERROR = 0, 
+		IDLE, 
+		TYPE_SPECIFIER, 
+		STORAGE_TYPE_SPECIFIER, 
+		IDENTIFIER, 
+		CHARACTER, 
+		CONST_STRING, 
+		DEC_INTEGER,				// to be honest, it is not very necessary 
+		OCT_INTEGER, 				// that we classify integers too clearly. 
+		HEX_INTEGER, 				// but it would help when handling numbers 
+		REAL_NUMBER, 				// like "0x123.23". 
+		OPERATOR, 
+		RETURN, 
+		IF, 
+		ELSE, 
+		WHILE, 
+		DO, 
+		COMMA, 
+		SEMI, 
+		BRACES_LEFT, 
+		BRACES_RIGHT, 
+		PARENTHESES_LEFT, 
+		PARENTHESES_RIGHT, 
+		BRACKETS_LEFT, 
+		BRACKETS_RIGHT, 
+		PREPROCESSOR, 
+		BLOCK_COMMENT, 
+		LINE_COMMENT
+	} token_t;
+
+	fsm(std::istream &strm);
+
+	bool update(void);
+	token_t get_token_type(void) { return stat;}
+	const std::string &get_token(void) { return buf;}
+private: 
+	token_t stat;
+	std::string buf;
+	std::istream &istrm;
+};
+
+#endif
