@@ -13,20 +13,20 @@ C_FLAGS=-g -c
 LINK_FLAGS=
 
 # source files
-SRC=main.cpp \
-	fsm.cpp
+SRC=
 
-# object files
-OBJ=$(SRC:.cpp=.o)
+default: $(OBJ) build
+	$(CC) $< -o build/$(TARGET)
 
-$(TARGET): $(OBJ) build
-	$(CC) $(LINK_FLAGS) $(OBJ) -o build/$(TARGET)
-
-%.o: %.c obj
-	$(CC) $(C_FLAGS) $<
+tag: src inc
+	ctags -R --language-force=C++ src/* inc/*
 
 build: 
 	mkdir build
+src: 
+	mkdir src
+inc: 
+	mkdir inc
 
 clean: 
-	rm *.o 
+	rm -r obj

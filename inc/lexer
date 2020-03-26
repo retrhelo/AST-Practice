@@ -1,0 +1,104 @@
+/* -*- C++ -*- */
+
+#ifndef __LEXER_H
+#define __LEXER_H
+
+#include <fstream>
+#include <string>
+
+/* describes all the token types that would be used during our
+	programme, adopted and modified from project fcc */
+typedef enum {
+	tokenUndefined, 
+	tokenEOF, 
+	tokenInt, 
+	tokenIdent, 
+	tokenDouble,  
+	tokenStr, 
+	tokenChar, 
+	tokenPreprocess, 
+	tokenComment, 
+
+	//keywordInclude, 
+	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, 
+	keywordReturn, keywordBreak, keywordContinue, 
+	keywordSizeof, 
+	keywordConst, 
+	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, 
+	keywordStruct, keywordUnion, keywordEnum, 
+	keywordVoid, keywordBool, keywordChar, keywordInt, 
+	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, 
+	keywordTrue, keywordFalse, 
+
+	punctLBrace, punctRBrace, 
+	punctLParen, punctRParen, 
+	punctLBracket, punctRBracket, 
+	punctSemicolon, 
+	punctPeriod, punctEllipsis, 
+	punctComma, 
+	punctAssign,
+	punctQuestion, 
+	punctColon, 
+	/* compare */
+	punctEqual, 
+	punctNotEqual, 
+	punctGreater, punctGreaterEqual, 
+	punctLess, punctLessEqual, 
+	/* bitwise operators */
+	punctShr, punctShrAssign, 
+	punctShl, punctShlAssign, 
+	punctBitwiseAnd, punctBitwiseAndAssign, 
+	punctBitwiseOr, punctBitwiseOrAssign, 
+	punctBitwiseXor, punctBitwiseXorAssign, 
+	punctBitwiseNot, 
+	/* logical operators */
+	punctLogicalAnd, 
+	punctLogicalOr, 
+	punctLogicalNot, 
+	/* algorithm operators */
+	punctPlus, punctPlusAssign, punctPlusPlus, 
+	punctMinus, punctMinusAssign, punctMinusMinus, 
+	punctTimes, punctTimesAssign, 
+	punctDivide, punctDivideAssign, 
+	punctModulo, punctModuloAssign, 
+	punctArrow, 
+} token_t;
+
+class Lexer {
+public: 
+	typedef std::streampos pos_t;
+
+	Lexer(std::istream &ifstrm): stream(ifstrm), cur_line(1), cur_lineChar(0) { nextChar();}
+
+	void next(void);		// read next token
+
+	int get_line(void) { return token_line;}
+	int get_lineChar(void) { return token_lineChar;}
+	pos_t get_pos(void) { return token_pos;}
+	std::string const &get_token(void) { return token;}
+	token_t get_type(void) { return type;}
+
+	std::istream &stream;
+private: 
+	int token_line;
+	int token_lineChar;
+	pos_t token_pos;
+	std::string token;
+	token_t type;
+
+	/* temporary variables for ifstrm */
+	int cur_line;
+	int cur_lineChar;
+	char cur;
+
+	char nextChar(void);		// change cur to next character
+
+	void eatChar(char ch) { token.push_back(ch);}
+	void eatCharNext(void);		// eat cur and call nextChar()
+	bool eatTryNext(char ch);		// try to eat ch
+
+	token_t match_keyword(std::string &str);
+	token_t match_punct(void);
+};
+
+#endif

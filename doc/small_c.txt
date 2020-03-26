@@ -1,0 +1,95 @@
+# this is a small C-language-based BNF format
+# based on simple_c.txt
+
+<preprocessor>
+<comment>
+
+<programme> ::= [{ <var-def> | <func-def> 
+				<struct-union-def> | <enum-def> }]
+
+<var-def> ::= [<storage-type>] <type> [{"*"}] <identifier-list> ";"
+
+<storage-type> ::= "const"
+				| "auto"
+				| "static"
+				| "volatile"
+<type> ::= "void" 
+		| "char" 
+		| "short" 
+		| "int" 
+		| "unsigned" 
+		| "signed"
+		| "long" 
+		| "float" 
+		| "double"
+		| <struct-union-enum-type>
+
+<identifier-list> ::= <identifier> [{ "," <identifier> }]
+
+<struct-union-def> ::= ( "struct" | "union" ) <identifier> "{" 
+						[{var-def}] "}" ";"
+<enum-def> ::= "enum" <identifier> "{" [{ <identifier> "," }] "}" ";"
+
+<func-def> ::= [<func-type>] <type> <identifier> 
+				"(" <arg-list> ")" ( ";" | <complex> )
+<func-type> ::= "const" | "static"
+
+<arg-list> ::= <arg> [{ "," <arg> }]
+<arg> ::= <type> [{"*"}] <identifier>
+
+<complex> ::= "{" [{ <var-def> | ( <expression> ";" ) 
+			| <if-block> | <while-block> | <do-while-block> | <for-block> }] "}"
+
+<if-block> ::= "if" "(" <expression> ")" 
+				<complex> | (<expression> ";")
+
+<while-block> ::= "while" "(" <expression> ")" 
+				<complex> | ( <expression> ";" )
+
+<do-while-block> ::= "do" <complex> "while" "(" <expression> ")" ";"
+
+<for-block> ::= "for" "(" <var-def> <expression> ";" <expression> ")" <complex>
+
+<expression> ::= ["("] [ <unary-expr> 
+				| <binary-expr> 
+				| <tri-expr> 
+				| <literal> ] [")"]
+
+<unary-expr> ::= [<unary-op>] <expression>
+
+<binary-expr> ::= <expression> <binary-op> <expression>
+
+<tri-expr> ::= <expression> "?" <expression> ":" <expression>
+
+<unary-op> ::= "+"
+			| "-"
+			| "*"
+			| "&"
+			| "~"
+			| "!"
+
+<binary-op> ::= "+" 
+			|"+="
+			| "-"
+			| "-="
+			| "*" 
+			| "*="
+			| "/" 
+			| "/="
+			| "%"
+			| "%="
+			| "="
+			| "=="
+			| "<"
+			| "<=" 
+			| ">"
+			| ">="
+			| "!="
+			| "&" 
+			| "&&"
+			| "&="
+			| "|"
+			| "||"
+			| "|="
+			| "^"
+			| "^="

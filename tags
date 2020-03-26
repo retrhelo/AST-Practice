@@ -1,0 +1,184 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+Lexer	inc/lexer	/^	Lexer(std::istream &ifstrm): stream(ifstrm), cur_line(1), cur_lineChar(0) { nextChar();}$/;"	f	class:Lexer	file:
+Lexer	inc/lexer	/^class Lexer {$/;"	c	file:
+ParamList	inc/ast	/^	astDeclObject, ast, ParamList, astDeclAtom, $/;"	e	enum:__anon9e14e9560103	file:
+__AST	inc/ast	/^#define __AST$/;"	d	file:
+__LEXER_H	inc/lexer	/^#define __LEXER_H$/;"	d	file:
+__PARSER	inc/parser	/^#define __PARSER$/;"	d	file:
+__anon77b4158e0103	inc/lexer	/^typedef enum {$/;"	g	file:
+__anon9e14e9560103	inc/ast	/^typedef enum {$/;"	g	file:
+add_child	inc/ast	/^	void add_child(ast *child) { children.push_back(child);}$/;"	f	struct:ast	typeref:typename:void	file:
+ast	inc/ast	/^	ast(std::streampos p, ast_t t): $/;"	f	struct:ast	file:
+ast	inc/ast	/^	ast(std::streampos p, ast_t t, ast *l, token_t o, ast *r): $/;"	f	struct:ast	file:
+ast	inc/ast	/^	astDeclObject, ast, ParamList, astDeclAtom, $/;"	e	enum:__anon9e14e9560103	file:
+ast	inc/ast	/^struct ast {$/;"	s	file:
+astAssign	inc/ast	/^	astComma, astAssign, astTernary, astBool, $/;"	e	enum:__anon9e14e9560103	file:
+astBool	inc/ast	/^	astComma, astAssign, astTernary, astBool, $/;"	e	enum:__anon9e14e9560103	file:
+astCode	inc/ast	/^	astCode, astLine, $/;"	e	enum:__anon9e14e9560103	file:
+astComma	inc/ast	/^	astComma, astAssign, astTernary, astBool, $/;"	e	enum:__anon9e14e9560103	file:
+astDecl	inc/ast	/^	astType, astDecl, astStorage, astFnImpl, $/;"	e	enum:__anon9e14e9560103	file:
+astDeclAtom	inc/ast	/^	astDeclObject, ast, ParamList, astDeclAtom, $/;"	e	enum:__anon9e14e9560103	file:
+astDeclBasic	inc/ast	/^	astDeclBasic, astDeclExpr, astDeclUnary, $/;"	e	enum:__anon9e14e9560103	file:
+astDeclExpr	inc/ast	/^	astDeclBasic, astDeclExpr, astDeclUnary, $/;"	e	enum:__anon9e14e9560103	file:
+astDeclObject	inc/ast	/^	astDeclObject, ast, ParamList, astDeclAtom, $/;"	e	enum:__anon9e14e9560103	file:
+astDeclUnary	inc/ast	/^	astDeclBasic, astDeclExpr, astDeclUnary, $/;"	e	enum:__anon9e14e9560103	file:
+astDesignatedInit	inc/ast	/^	astElementInit, astDesignatedInit, $/;"	e	enum:__anon9e14e9560103	file:
+astDoWhile	inc/ast	/^	astIf, astWhile, astDoWhile, astFor, $/;"	e	enum:__anon9e14e9560103	file:
+astElementInit	inc/ast	/^	astElementInit, astDesignatedInit, $/;"	e	enum:__anon9e14e9560103	file:
+astEnum	inc/ast	/^	astStructOrUnion, astEnum, $/;"	e	enum:__anon9e14e9560103	file:
+astEnumField	inc/ast	/^	astField, astEnumField, astParam, $/;"	e	enum:__anon9e14e9560103	file:
+astEquality	inc/ast	/^	astEquality, astShift, astExpr, astTerm, $/;"	e	enum:__anon9e14e9560103	file:
+astExpr	inc/ast	/^	astEquality, astShift, astExpr, astTerm, $/;"	e	enum:__anon9e14e9560103	file:
+astFactor	inc/ast	/^	astUnary, astPostUnary, astObject, astFactor, $/;"	e	enum:__anon9e14e9560103	file:
+astField	inc/ast	/^	astField, astEnumField, astParam, $/;"	e	enum:__anon9e14e9560103	file:
+astFnImpl	inc/ast	/^	astType, astDecl, astStorage, astFnImpl, $/;"	e	enum:__anon9e14e9560103	file:
+astFor	inc/ast	/^	astIf, astWhile, astDoWhile, astFor, $/;"	e	enum:__anon9e14e9560103	file:
+astIf	inc/ast	/^	astIf, astWhile, astDoWhile, astFor, $/;"	e	enum:__anon9e14e9560103	file:
+astLine	inc/ast	/^	astCode, astLine, $/;"	e	enum:__anon9e14e9560103	file:
+astModule	inc/ast	/^	astModule, $/;"	e	enum:__anon9e14e9560103	file:
+astName	inc/ast	/^	astName$/;"	e	enum:__anon9e14e9560103	file:
+astObject	inc/ast	/^	astUnary, astPostUnary, astObject, astFactor, $/;"	e	enum:__anon9e14e9560103	file:
+astParam	inc/ast	/^	astField, astEnumField, astParam, $/;"	e	enum:__anon9e14e9560103	file:
+astPostUnary	inc/ast	/^	astUnary, astPostUnary, astObject, astFactor, $/;"	e	enum:__anon9e14e9560103	file:
+astShift	inc/ast	/^	astEquality, astShift, astExpr, astTerm, $/;"	e	enum:__anon9e14e9560103	file:
+astStorage	inc/ast	/^	astType, astDecl, astStorage, astFnImpl, $/;"	e	enum:__anon9e14e9560103	file:
+astStructOrUnion	inc/ast	/^	astStructOrUnion, astEnum, $/;"	e	enum:__anon9e14e9560103	file:
+astTerm	inc/ast	/^	astEquality, astShift, astExpr, astTerm, $/;"	e	enum:__anon9e14e9560103	file:
+astTernary	inc/ast	/^	astComma, astAssign, astTernary, astBool, $/;"	e	enum:__anon9e14e9560103	file:
+astType	inc/ast	/^	astType, astDecl, astStorage, astFnImpl, $/;"	e	enum:__anon9e14e9560103	file:
+astUnary	inc/ast	/^	astUnary, astPostUnary, astObject, astFactor, $/;"	e	enum:__anon9e14e9560103	file:
+astUndefined	inc/ast	/^	astUndefined, $/;"	e	enum:__anon9e14e9560103	file:
+astWhile	inc/ast	/^	astIf, astWhile, astDoWhile, astFor, $/;"	e	enum:__anon9e14e9560103	file:
+ast_t	inc/ast	/^} ast_t;$/;"	t	typeref:enum:__anon9e14e9560103	file:
+children	inc/ast	/^	std::vector<ast*> children;$/;"	m	struct:ast	typeref:typename:std::vector<ast * >	file:
+cur	inc/lexer	/^	char cur;$/;"	m	class:Lexer	typeref:typename:char	file:
+cur_line	inc/lexer	/^	int cur_line;$/;"	m	class:Lexer	typeref:typename:int	file:
+cur_lineChar	inc/lexer	/^	int cur_lineChar;$/;"	m	class:Lexer	typeref:typename:int	file:
+debug_msg	src/parser.cpp	/^void debug_msg(std::string msg) {$/;"	f	typeref:typename:void
+debug_msg	src/parser.cpp	/^void debug_msg(std::string msg, int line) {$/;"	f	typeref:typename:void
+eatChar	inc/lexer	/^	void eatChar(char ch) { token.push_back(ch);}$/;"	f	class:Lexer	typeref:typename:void	file:
+eatCharNext	src/lexer.cpp	/^void Lexer::eatCharNext(void) {$/;"	f	class:Lexer	typeref:typename:void
+eatTryNext	src/lexer.cpp	/^bool Lexer::eatTryNext(char ch) {$/;"	f	class:Lexer	typeref:typename:bool
+enterDebug	src/parser.cpp	/^void enterDebug(std::string node_name) {$/;"	f	typeref:typename:void
+exitDebug	src/parser.cpp	/^void exitDebug(void) {$/;"	f	typeref:typename:void
+get_line	inc/lexer	/^	int get_line(void) { return token_line;}$/;"	f	class:Lexer	typeref:typename:int	file:
+get_lineChar	inc/lexer	/^	int get_lineChar(void) { return token_lineChar;}$/;"	f	class:Lexer	typeref:typename:int	file:
+get_pos	inc/lexer	/^	pos_t get_pos(void) { return token_pos;}$/;"	f	class:Lexer	typeref:typename:pos_t	file:
+get_token	inc/lexer	/^	std::string const &get_token(void) { return token;}$/;"	f	class:Lexer	typeref:typename:std::string const &	file:
+get_type	inc/lexer	/^	token_t get_type(void) { return type;}$/;"	f	class:Lexer	typeref:typename:token_t	file:
+keywordAuto	inc/lexer	/^	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, $/;"	e	enum:__anon77b4158e0103	file:
+keywordBool	inc/lexer	/^	keywordVoid, keywordBool, keywordChar, keywordInt, $/;"	e	enum:__anon77b4158e0103	file:
+keywordBreak	inc/lexer	/^	keywordReturn, keywordBreak, keywordContinue, $/;"	e	enum:__anon77b4158e0103	file:
+keywordChar	inc/lexer	/^	keywordVoid, keywordBool, keywordChar, keywordInt, $/;"	e	enum:__anon77b4158e0103	file:
+keywordConst	inc/lexer	/^	keywordConst, $/;"	e	enum:__anon77b4158e0103	file:
+keywordContinue	inc/lexer	/^	keywordReturn, keywordBreak, keywordContinue, $/;"	e	enum:__anon77b4158e0103	file:
+keywordDo	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
+keywordDouble	inc/lexer	/^	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, $/;"	e	enum:__anon77b4158e0103	file:
+keywordElse	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
+keywordEnum	inc/lexer	/^	keywordStruct, keywordUnion, keywordEnum, $/;"	e	enum:__anon77b4158e0103	file:
+keywordExtern	inc/lexer	/^	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, $/;"	e	enum:__anon77b4158e0103	file:
+keywordFalse	inc/lexer	/^	keywordTrue, keywordFalse, $/;"	e	enum:__anon77b4158e0103	file:
+keywordFloat	inc/lexer	/^	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, $/;"	e	enum:__anon77b4158e0103	file:
+keywordFor	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
+keywordIf	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
+keywordInt	inc/lexer	/^	keywordVoid, keywordBool, keywordChar, keywordInt, $/;"	e	enum:__anon77b4158e0103	file:
+keywordLong	inc/lexer	/^	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, $/;"	e	enum:__anon77b4158e0103	file:
+keywordReturn	inc/lexer	/^	keywordReturn, keywordBreak, keywordContinue, $/;"	e	enum:__anon77b4158e0103	file:
+keywordShort	inc/lexer	/^	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, $/;"	e	enum:__anon77b4158e0103	file:
+keywordSizeof	inc/lexer	/^	keywordSizeof, $/;"	e	enum:__anon77b4158e0103	file:
+keywordStatic	inc/lexer	/^	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, $/;"	e	enum:__anon77b4158e0103	file:
+keywordStruct	inc/lexer	/^	keywordStruct, keywordUnion, keywordEnum, $/;"	e	enum:__anon77b4158e0103	file:
+keywordTrue	inc/lexer	/^	keywordTrue, keywordFalse, $/;"	e	enum:__anon77b4158e0103	file:
+keywordTypedef	inc/lexer	/^	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, $/;"	e	enum:__anon77b4158e0103	file:
+keywordUnion	inc/lexer	/^	keywordStruct, keywordUnion, keywordEnum, $/;"	e	enum:__anon77b4158e0103	file:
+keywordUnsigned	inc/lexer	/^	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, $/;"	e	enum:__anon77b4158e0103	file:
+keywordVoid	inc/lexer	/^	keywordVoid, keywordBool, keywordChar, keywordInt, $/;"	e	enum:__anon77b4158e0103	file:
+keywordWhile	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
+left	inc/ast	/^	ast *left;$/;"	m	struct:ast	typeref:typename:ast *	file:
+main	src/lexer_test.cpp	/^int main(void) {$/;"	f	typeref:typename:int
+match_keyword	src/lexer.cpp	/^token_t Lexer::match_keyword(std::string &str) {$/;"	f	class:Lexer	typeref:typename:token_t
+match_punct	src/lexer.cpp	/^token_t Lexer::match_punct(void) {$/;"	f	class:Lexer	typeref:typename:token_t
+next	src/lexer.cpp	/^void Lexer::next(void) {$/;"	f	class:Lexer	typeref:typename:void
+nextChar	src/lexer.cpp	/^char Lexer::nextChar(void) {$/;"	f	class:Lexer	typeref:typename:char
+op	inc/ast	/^	token_t op;$/;"	m	struct:ast	typeref:typename:token_t	file:
+parser	src/parser.cpp	/^ast *parser(Lexer &lex) {$/;"	f	typeref:typename:ast *
+parserCode	src/parser.cpp	/^static ast *parserCode(Lexer &lex) {$/;"	f	typeref:typename:ast *	file:
+parserIf	src/parser.cpp	/^static ast *parserIf(Lexer &lex) {$/;"	f	typeref:typename:ast *	file:
+parserLine	src/parser.cpp	/^static ast *parserLine(Lexer &lex) {$/;"	f	typeref:typename:ast *	file:
+parserWhile	src/parser.cpp	/^static ast *parserWhile(Lexer &lex) {$/;"	f	typeref:typename:ast *	file:
+pos	inc/ast	/^	std::streampos pos;$/;"	m	struct:ast	typeref:typename:std::streampos	file:
+pos_t	inc/lexer	/^	typedef std::streampos pos_t;$/;"	t	class:Lexer	typeref:typename:std::streampos	file:
+punctArrow	inc/lexer	/^	punctArrow, $/;"	e	enum:__anon77b4158e0103	file:
+punctAssign	inc/lexer	/^	punctAssign,$/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseAnd	inc/lexer	/^	punctBitwiseAnd, punctBitwiseAndAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseAndAssign	inc/lexer	/^	punctBitwiseAnd, punctBitwiseAndAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseNot	inc/lexer	/^	punctBitwiseNot, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseOr	inc/lexer	/^	punctBitwiseOr, punctBitwiseOrAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseOrAssign	inc/lexer	/^	punctBitwiseOr, punctBitwiseOrAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseXor	inc/lexer	/^	punctBitwiseXor, punctBitwiseXorAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctBitwiseXorAssign	inc/lexer	/^	punctBitwiseXor, punctBitwiseXorAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctColon	inc/lexer	/^	punctColon, $/;"	e	enum:__anon77b4158e0103	file:
+punctComma	inc/lexer	/^	punctComma, $/;"	e	enum:__anon77b4158e0103	file:
+punctDivide	inc/lexer	/^	punctDivide, punctDivideAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctDivideAssign	inc/lexer	/^	punctDivide, punctDivideAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctEllipsis	inc/lexer	/^	punctPeriod, punctEllipsis, $/;"	e	enum:__anon77b4158e0103	file:
+punctEqual	inc/lexer	/^	punctEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctGreater	inc/lexer	/^	punctGreater, punctGreaterEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctGreaterEqual	inc/lexer	/^	punctGreater, punctGreaterEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctLBrace	inc/lexer	/^	punctLBrace, punctRBrace, $/;"	e	enum:__anon77b4158e0103	file:
+punctLBracket	inc/lexer	/^	punctLBracket, punctRBracket, $/;"	e	enum:__anon77b4158e0103	file:
+punctLParen	inc/lexer	/^	punctLParen, punctRParen, $/;"	e	enum:__anon77b4158e0103	file:
+punctLess	inc/lexer	/^	punctLess, punctLessEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctLessEqual	inc/lexer	/^	punctLess, punctLessEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctLogicalAnd	inc/lexer	/^	punctLogicalAnd, $/;"	e	enum:__anon77b4158e0103	file:
+punctLogicalNot	inc/lexer	/^	punctLogicalNot, $/;"	e	enum:__anon77b4158e0103	file:
+punctLogicalOr	inc/lexer	/^	punctLogicalOr, $/;"	e	enum:__anon77b4158e0103	file:
+punctMinus	inc/lexer	/^	punctMinus, punctMinusAssign, punctMinusMinus, $/;"	e	enum:__anon77b4158e0103	file:
+punctMinusAssign	inc/lexer	/^	punctMinus, punctMinusAssign, punctMinusMinus, $/;"	e	enum:__anon77b4158e0103	file:
+punctMinusMinus	inc/lexer	/^	punctMinus, punctMinusAssign, punctMinusMinus, $/;"	e	enum:__anon77b4158e0103	file:
+punctModulo	inc/lexer	/^	punctModulo, punctModuloAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctModuloAssign	inc/lexer	/^	punctModulo, punctModuloAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctNotEqual	inc/lexer	/^	punctNotEqual, $/;"	e	enum:__anon77b4158e0103	file:
+punctPeriod	inc/lexer	/^	punctPeriod, punctEllipsis, $/;"	e	enum:__anon77b4158e0103	file:
+punctPlus	inc/lexer	/^	punctPlus, punctPlusAssign, punctPlusPlus, $/;"	e	enum:__anon77b4158e0103	file:
+punctPlusAssign	inc/lexer	/^	punctPlus, punctPlusAssign, punctPlusPlus, $/;"	e	enum:__anon77b4158e0103	file:
+punctPlusPlus	inc/lexer	/^	punctPlus, punctPlusAssign, punctPlusPlus, $/;"	e	enum:__anon77b4158e0103	file:
+punctQuestion	inc/lexer	/^	punctQuestion, $/;"	e	enum:__anon77b4158e0103	file:
+punctRBrace	inc/lexer	/^	punctLBrace, punctRBrace, $/;"	e	enum:__anon77b4158e0103	file:
+punctRBracket	inc/lexer	/^	punctLBracket, punctRBracket, $/;"	e	enum:__anon77b4158e0103	file:
+punctRParen	inc/lexer	/^	punctLParen, punctRParen, $/;"	e	enum:__anon77b4158e0103	file:
+punctSemicolon	inc/lexer	/^	punctSemicolon, $/;"	e	enum:__anon77b4158e0103	file:
+punctShl	inc/lexer	/^	punctShl, punctShlAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctShlAssign	inc/lexer	/^	punctShl, punctShlAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctShr	inc/lexer	/^	punctShr, punctShrAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctShrAssign	inc/lexer	/^	punctShr, punctShrAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctTimes	inc/lexer	/^	punctTimes, punctTimesAssign, $/;"	e	enum:__anon77b4158e0103	file:
+punctTimesAssign	inc/lexer	/^	punctTimes, punctTimesAssign, $/;"	e	enum:__anon77b4158e0103	file:
+right	inc/ast	/^	ast *right;$/;"	m	struct:ast	typeref:typename:ast *	file:
+s	src/parser.cpp	/^static std::stack<std::string> s;$/;"	v	typeref:typename:std::stack<std::string>	file:
+stream	inc/lexer	/^	std::istream &stream;$/;"	m	class:Lexer	typeref:typename:std::istream &	file:
+tag	inc/ast	/^	ast_t tag;$/;"	m	struct:ast	typeref:typename:ast_t	file:
+token	inc/lexer	/^	std::string token;$/;"	m	class:Lexer	typeref:typename:std::string	file:
+tokenChar	inc/lexer	/^	tokenChar, $/;"	e	enum:__anon77b4158e0103	file:
+tokenComment	inc/lexer	/^	tokenComment, $/;"	e	enum:__anon77b4158e0103	file:
+tokenDouble	inc/lexer	/^	tokenDouble,  $/;"	e	enum:__anon77b4158e0103	file:
+tokenEOF	inc/lexer	/^	tokenEOF, $/;"	e	enum:__anon77b4158e0103	file:
+tokenIdent	inc/lexer	/^	tokenIdent, $/;"	e	enum:__anon77b4158e0103	file:
+tokenInt	inc/lexer	/^	tokenInt, $/;"	e	enum:__anon77b4158e0103	file:
+tokenMatchNext	src/parser.cpp	/^static void tokenMatchNext(Lexer &lex) {$/;"	f	typeref:typename:void	file:
+tokenPreprocess	inc/lexer	/^	tokenPreprocess, $/;"	e	enum:__anon77b4158e0103	file:
+tokenStr	inc/lexer	/^	tokenStr, $/;"	e	enum:__anon77b4158e0103	file:
+tokenTryMatchNext	src/parser.cpp	/^static bool tokenTryMatchNext(Lexer &lex, token_t type) {$/;"	f	typeref:typename:bool	file:
+tokenUndefined	inc/lexer	/^	tokenUndefined, $/;"	e	enum:__anon77b4158e0103	file:
+token_line	inc/lexer	/^	int token_line;$/;"	m	class:Lexer	typeref:typename:int	file:
+token_lineChar	inc/lexer	/^	int token_lineChar;$/;"	m	class:Lexer	typeref:typename:int	file:
+token_pos	inc/lexer	/^	pos_t token_pos;$/;"	m	class:Lexer	typeref:typename:pos_t	file:
+token_t	inc/lexer	/^} token_t;$/;"	t	typeref:enum:__anon77b4158e0103	file:
+type	inc/lexer	/^	token_t type;$/;"	m	class:Lexer	typeref:typename:token_t	file:
+~ast	inc/ast	/^	~ast(void) {$/;"	f	struct:ast	file:

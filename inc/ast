@@ -1,0 +1,55 @@
+/* -*- C++ -*- */
+
+#ifndef __AST
+#define __AST
+
+#include <iostream>
+#include <vector>
+
+#include "lexer"
+
+typedef enum {
+	astUndefined, 
+	astModule, 
+	astCode, astLine, 
+	astIf, astWhile, astDoWhile, astFor, 
+	astComma, astAssign, astTernary, astBool, 
+	astEquality, astShift, astExpr, astTerm, 
+	astUnary, astPostUnary, astObject, astFactor, 
+	astElementInit, astDesignatedInit, 
+	astType, astDecl, astStorage, astFnImpl, 
+	astField, astEnumField, astParam, 
+	astStructOrUnion, astEnum, 
+	astDeclBasic, astDeclExpr, astDeclUnary, 
+	astDeclObject, astParamList, astDeclAtom, 
+	astName
+} ast_t;
+
+struct ast {
+	ast(std::streampos p, ast_t t): 
+		pos(p), ast_tag(t), token_tag(tokenUndefined), left(nullptr), op(keywordUndefined), right(nullptr) {}
+	ast(std::streampos p, token_t t): 
+		pos(p), ast_tag(astUndefined), token_tag(t), left(nullptr), op(keywordUndefined), right(nullptr) {}
+	ast(std::streampos p, ast_t t, ast *l, token_t o, ast *r): 
+		pos(p), ast_tag(t), token_tag(tokenUndefined), left(l), op(o), right(r) {}
+	~ast(void) {
+		for (ast *it : children) 
+			delete it;
+		delete left;
+		delete right;
+	}
+
+	std::streampos pos;
+	ast_t ast_tag;
+	token_t token_tag;
+
+	std::vector<ast*> children;
+	void add_child(ast *child) { children.push_back(child);}
+
+	/* for algorithm expressions */
+	ast *left;
+	token_t op;
+	ast *right;
+};
+
+#endif
