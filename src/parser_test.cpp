@@ -1,24 +1,20 @@
 #include <iostream>
-#include <string>
 #include <fstream>
+#include <string>
 
 #include "../inc/lexer"
+#include "../inc/parser"
 
 int main(void) {
 	std::string filename;
-
-	std::cout << "filename: ";
+	
+	std::cerr << "filename: ";
 	std::cin >> filename;
 
 	std::ifstream ifstrm(filename);
 	Lexer lex(ifstrm);
-
 	lex.next();
-	while (lex.get_type() != tokenEOF) {
-		std::cout << lex.get_line() << ":" << lex.get_lineChar() 
-			<< ": " << lex.get_token() << std::endl;
-		lex.next();
-	}
+	parserProgramme(lex);
 
 	return 0;
 }

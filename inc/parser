@@ -1,18 +1,14 @@
 /* -*- C++ -*- */
 
-#ifndef __PARSER
-#define __PARSER
+#pragma once
 
 #include <string>
 
-#include "ast"
 #include "lexer"
 
-/* the main function for generating the parser tree */
-ast *parser(Lexer &lex);
+bool parserProgramme(Lexer &lex, int indent = 0);
 
-void enterDebug(std::string node_name);
+void enterDebug(std::string str);
+void debug_msg(std::string &str);
+void debug_msg(char *str);
 void exitDebug(void);
-void debug_msg(std::string msg);
-
-#endif

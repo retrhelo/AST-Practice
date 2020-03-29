@@ -1,10 +1,9 @@
 #include <stdio.h>
 
-int main(void) {
-	int a = 0;
+/* hello world */
+// hello world
 
-	// comment 1
-	/* comment 2 */
+int main(void) {
 	printf("hello world\n");
 
 	return 0;

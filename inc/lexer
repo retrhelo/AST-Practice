@@ -1,104 +1,88 @@
 /* -*- C++ -*- */
 
-#ifndef __LEXER_H
-#define __LEXER_H
+#pragma once
 
-#include <fstream>
+#include <iostream>
 #include <string>
 
-/* describes all the token types that would be used during our
-	programme, adopted and modified from project fcc */
 typedef enum {
 	tokenUndefined, 
 	tokenEOF, 
-	tokenInt, 
 	tokenIdent, 
-	tokenDouble,  
-	tokenStr, 
+	tokenInt, 
+	tokenDouble, 
 	tokenChar, 
-	tokenPreprocess, 
-	tokenComment, 
+	tokenStr, 
 
-	//keywordInclude, 
 	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, 
 	keywordReturn, keywordBreak, keywordContinue, 
 	keywordSizeof, 
-	keywordConst, 
-	keywordAuto, keywordStatic, keywordExtern, keywordTypedef, 
+	keywordConst, keywordAuto, keywordStatic, keywordVolatile, keywordExtern, 
+	keywordVoid, keywordChar, keywordShort, keywordInt, 
+	keywordUnsigned, keywordSigned, keywordLong, 
+	keywordFloat, keywordDouble, 
 	keywordStruct, keywordUnion, keywordEnum, 
-	keywordVoid, keywordBool, keywordChar, keywordInt, 
-	keywordUnsigned, keywordLong, keywordShort, keywordDouble, keywordFloat, 
-	keywordTrue, keywordFalse, 
 
 	punctLBrace, punctRBrace, 
 	punctLParen, punctRParen, 
 	punctLBracket, punctRBracket, 
-	punctSemicolon, 
-	punctPeriod, punctEllipsis, 
-	punctComma, 
-	punctAssign,
-	punctQuestion, 
-	punctColon, 
-	/* compare */
-	punctEqual, 
-	punctNotEqual, 
-	punctGreater, punctGreaterEqual, 
-	punctLess, punctLessEqual, 
-	/* bitwise operators */
-	punctShr, punctShrAssign, 
-	punctShl, punctShlAssign, 
-	punctBitwiseAnd, punctBitwiseAndAssign, 
-	punctBitwiseOr, punctBitwiseOrAssign, 
-	punctBitwiseXor, punctBitwiseXorAssign, 
-	punctBitwiseNot, 
-	/* logical operators */
-	punctLogicalAnd, 
-	punctLogicalOr, 
-	punctLogicalNot, 
-	/* algorithm operators */
+	punctSemicolon, punctArrow, 
+	punctComma, punctPeriod, 
+	punctQuestion, punctColon, 
+
+	/* algorithm */
 	punctPlus, punctPlusAssign, punctPlusPlus, 
 	punctMinus, punctMinusAssign, punctMinusMinus, 
 	punctTimes, punctTimesAssign, 
 	punctDivide, punctDivideAssign, 
 	punctModulo, punctModuloAssign, 
-	punctArrow, 
+	punctAssign, 
+	/* compare */
+	punctEqual, punctNotEqual, 
+	punctGreater, punctGreaterEqual, 
+	punctLess, punctLessEqual, 
+	/* bitwise */
+	punctBitwiseAnd, punctBitwiseAndAssign, 
+	punctBitwiseOr, punctBitwiseOrAssign, 
+	punctBitwiseXor, punctBitwiseXorAssign, 
+	punctBitwiseNot, 
+	punctShr, punctShrAssign, 
+	punctShl, punctShlAssign, 
+	/* logical */
+	punctLogicalAnd, punctLogicalOr, 
+	punctLogicalNot,
 } token_t;
 
 class Lexer {
 public: 
 	typedef std::streampos pos_t;
 
-	Lexer(std::istream &ifstrm): stream(ifstrm), cur_line(1), cur_lineChar(0) { nextChar();}
+	Lexer(std::istream &s): 
+		token_line(0), token_lineChar(0), type(tokenUndefined), 
+		token(""), cur_line(1), cur_lineChar(0), cur_char('\0'), stream(s) { charNext();}
 
-	void next(void);		// read next token
+	void next(void);
 
 	int get_line(void) { return token_line;}
 	int get_lineChar(void) { return token_lineChar;}
-	pos_t get_pos(void) { return token_pos;}
-	std::string const &get_token(void) { return token;}
 	token_t get_type(void) { return type;}
-
-	std::istream &stream;
+	std::string get_token(void) { return token;}
+	pos_t get_pos(void) { return token_pos;}
 private: 
 	int token_line;
 	int token_lineChar;
-	pos_t token_pos;
-	std::string token;
 	token_t type;
+	std::string token;
+	pos_t token_pos;
 
-	/* temporary variables for ifstrm */
-	int cur_line;
-	int cur_lineChar;
-	char cur;
+	int cur_line, cur_lineChar;
+	char cur_char;
 
-	char nextChar(void);		// change cur to next character
+	std::istream &stream;
 
-	void eatChar(char ch) { token.push_back(ch);}
-	void eatCharNext(void);		// eat cur and call nextChar()
-	bool eatTryNext(char ch);		// try to eat ch
+	char charNext(void);
+	char eatNext(void);
+	bool eatTryNext(char ch);
 
-	token_t match_keyword(std::string &str);
-	token_t match_punct(void);
+	token_t lexerPunct(void);
 };
-
-#endif

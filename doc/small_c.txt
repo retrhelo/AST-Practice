@@ -13,6 +13,7 @@
 				| "auto"
 				| "static"
 				| "volatile"
+				| "extern"
 <type> ::= "void" 
 		| "char" 
 		| "short" 
@@ -31,14 +32,17 @@
 <enum-def> ::= "enum" <identifier> "{" [{ <identifier> "," }] "}" ";"
 
 <func-def> ::= [<func-type>] <type> <identifier> 
-				"(" <arg-list> ")" ( ";" | <complex> )
+				"(" "void" | <arg-list> ")" ( ";" | <complex> )
 <func-type> ::= "const" | "static"
 
 <arg-list> ::= <arg> [{ "," <arg> }]
 <arg> ::= <type> [{"*"}] <identifier>
 
 <complex> ::= "{" [{ <var-def> | ( <expression> ";" ) 
-			| <if-block> | <while-block> | <do-while-block> | <for-block> }] "}"
+			| <if-block> | <while-block> | <do-while-block> | <for-block> 
+			| <jump> }] "}"
+
+<jump> ::= ( "break" | "continue" | "return" <expression> ) ";"
 
 <if-block> ::= "if" "(" <expression> ")" 
 				<complex> | (<expression> ";")
@@ -50,23 +54,24 @@
 
 <for-block> ::= "for" "(" <var-def> <expression> ";" <expression> ")" <complex>
 
-<expression> ::= ["("] [ <unary-expr> 
-				| <binary-expr> 
-				| <tri-expr> 
-				| <literal> ] [")"]
+<expression> ::= ["("] [ ( <unary-expr> | <literal> 
+				| <identifier> | <funct-call> ) 
+				[{ <binary-op> <expression> }] 
+				| [ "?" <expression> ":" <expression> ]] [")"]
 
-<unary-expr> ::= [<unary-op>] <expression>
+<unary-expr> ::= <unary-op> <expression>
 
-<binary-expr> ::= <expression> <binary-op> <expression>
-
-<tri-expr> ::= <expression> "?" <expression> ":" <expression>
+<func-call> ::= <identifier> "(" (<identifier> | <literal>) [{ "," (<identifier> | <literal>) }] ")"
 
 <unary-op> ::= "+"
+			| "++"
 			| "-"
+			| "--"
 			| "*"
 			| "&"
 			| "~"
 			| "!"
+			| "sizeof"
 
 <binary-op> ::= "+" 
 			|"+="
@@ -85,6 +90,10 @@
 			| ">"
 			| ">="
 			| "!="
+			| ">>"
+			| ">>="
+			| "<<"
+			| "<<="
 			| "&" 
 			| "&&"
 			| "&="
@@ -93,3 +102,6 @@
 			| "|="
 			| "^"
 			| "^="
+			| ","
+			| "."
+			| "->"

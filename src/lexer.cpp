@@ -1,66 +1,70 @@
 #include <cctype>
 
-#include "../lexer"
+#include "../inc/lexer"
 
-#pragma GCC dependency ../lexer
+#pragma dependence "../inc/lexer"
 
-token_t Lexer::match_keyword(std::string &str) {
-	if (str == "if") 
-		return keywordIf;
-	else if (str == "else") 
-		return keywordElse; 
-	else if (str == "while") 
-		return keywordWhile;
-	else if (str == "do") 
-		return keywordDo;
-	else if (str == "for") 
-		return keywordFor;
-	else if (str == "sizeof") 
-		return keywordSizeof;
-	else if (str == "const") 
-		return keywordConst;
-	else if (str == "auto") 
-		return keywordAuto;
-	else if (str == "static") 
-		return keywordStatic;
-	else if (str == "extern") 
-		return keywordExtern;
-	else if (str == "typedef") 
-		return keywordTypedef;
-	else if (str == "struct") 
-		return keywordStruct;
-	else if (str == "union") 
-		return keywordUnion;
-	else if (str == "enum") 
-		return keywordEnum;
-	else if (str == "void") 
-		return keywordVoid;
-	else if (str == "bool") 
-		return keywordBool;
-	else if (str == "char") 
-		return keywordChar;
-	else if (str == "int") 
-		return keywordInt;
-	else if (str == "unsigned") 
-		return keywordUnsigned;
-	else if (str == "long") 
-		return keywordLong;
-	else if (str == "short") 
-		return keywordShort;
-	else if (str == "double") 
-		return keywordDouble;
-	else if (str == "float") 
-		return keyworFloat;
-	else if (str == "true") 
-		return keywordTrue;
-	else if (str == "false") 
-		return keywordFalse;
+char Lexer::charNext(void) {
+	if (cur_char == '\n') {
+		cur_line ++;
+		cur_lineChar = 1;
+	}
+	else if (cur_char != EOF) 
+		cur_lineChar ++;
+
+	return cur_char = stream.get();
+}
+
+char Lexer::eatNext(void) {
+	char ret = cur_char;
+
+	token.push_back(ret);
+	charNext();
+
+	return ret;
+}
+
+bool Lexer::eatTryNext(char ch) {
+	if (cur_char == ch) {
+		eatNext();
+		return true;
+	}
+	else 
+		return false;
+}
+
+static token_t keywordMatch(std::string &str) {
+	if ("if" == str) return keywordIf;
+	else if ("else" == str) return keywordElse; 
+	else if ("while" == str) return keywordWhile;
+	else if ("do" == str) return keywordDo;
+	else if ("for" == str) return keywordFor; 
+	else if ("return" == str) return keywordReturn;
+	else if ("break" == str) return keywordBreak; 
+	else if ("continue" == str) return keywordContinue; 
+	else if ("sizeof" == str) return keywordSizeof;
+	else if ("const" == str) return keywordConst; 
+	else if ("auto" == str) return keywordAuto;
+	else if ("static" == str) return keywordStatic;
+	else if ("volatile" == str) return keywordVolatile;
+	else if ("extern" == str) return keywordExtern; 
+	else if ("void" == str) return keywordVoid;
+	else if ("char" == str) return keywordChar;
+	else if ("short" == str) return keywordShort;
+	else if ("int" == str) return keywordInt; 
+	else if ("unsigned" == str) return keywordUnsigned;
+	else if ("signed" == str) return keywordSigned;
+	else if ("long" == str) return keywordLong;
+	else if ("float" == str) return keywordFloat;
+	else if ("double" == str) return keywordDouble;
+	else if ("struct" == str) return keywordStruct;
+	else if ("union" == str) return keywordUnion;
+	else if ("enum" == str) return keywordEnum;
 	else 
 		return tokenUndefined;
 }
 
-token_t Lexer::match_punct(void) {
-	eatCharNext();
+token_t Lexer::lexerPunct(void) {
 	switch (token[0]) {
 		case '{': return punctLBrace;
 		case '}': return punctRBrace;
@@ -69,196 +73,137 @@ token_t Lexer::match_punct(void) {
 		case '[': return punctLBracket;
 		case ']': return punctRBracket;
 		case ';': return punctSemicolon;
+		case '.': return punctPeriod;
 		case ',': return punctComma;
-		case '=': /* == or = */
+		case '=': 
 			return eatTryNext('=') ? punctEqual : punctAssign;
-		case '!': /* ! or != */
+		case '!': 
 			return eatTryNext('=') ? punctNotEqual : punctLogicalNot;
-		case '>': /* > or >= or >> or >>= */
-			if (eatTryNext('=')) 
-				return punctGreaterEqual;
-			else if (eatTryNext('>')) 
-				return eatTryNext('=') ? punctShrAssign : punctShr;
-			else 
-				return punctGreater;
-		case '<': /* < or <= or << or <<= */
-			if (eatTryNext('=')) 
-				return punctLessEqual;
-			else if (eatTryNext('<')) 
-				return eatTryNext('=') ? punctShlAssign : punctShl;
-			else 
-				return punctLess;
+		case '>': return eatTryNext('=') ? punctGreaterEqual : 
+					eatTryNext('>') ? 
+					(eatTryNext('=') ? punctShrAssign : punctShr)
+					: punctGreater;
+		case '<': return eatTryNext('=') ? punctLessEqual
+						: eatTryNext('<') ? (eatTryNext('=') ? punctShlAssign : punctShl)
+						: punctLess;
+
 		case '?': return punctQuestion;
 		case ':': return punctColon;
-		case '&': /* & or && or &= */
-			if (eatTryNext('=')) 
-				return punctBitwiseAndAssign;
-			else if (eatTryNext('&')) 
-				return punctLogicalAnd;
-			else 
-				return punctBitwiseAnd;
-		case '|': /* | or || or |= */
-			if (eatTryNext('=')) 
-				return punctBitwiseOrAssign;
-			else if (eatTryNext('|')) 
-				return punctLogicalOr;
-			else 
-				return punctBitwiseOr;
-			case '^': /* ^ or ^= */
-				return eatTryNext('=') ? punctBitwiseXorAssign : 
-					punctBitwiseXor;
-			case '~': return punctBitwiseNot;
-			case '+': /* + or ++ or += */
-				if (eatTryNext('=')) 
-					return punctPlusAssign;
-				else if (eatTryNext('+')) 
-					return punctPlusPlus;
-				else 
-					return punctPlus;
-			case '-': /* - or -- or -= */
-				if (eatTryNext('=')) 
-					return punctMinusAssign;
-				else if (eatTryNext('-')) 
-					return punctMinusMinus;
-				else 
-					return punctMinus;
-			case '*': /* * or *= */
-				return eatTryNext('=') ? punctTimesAssign : punctTimes;
-			case '/': /* / or /= */
-				return eatTryNext('=') ? punctDivideAssign : punctDivide;
-			case '%': /* % or %= */
-				return eatTryNext('=') ? punctModuloAssign : punctModulo;
-			case EOF: 
-				return tokenEOF;
-			dafault: /* unknown punctuation */
-				return tokenUndefined;
-	}
 
-	return tokenUndefined;
+		case '&': return eatTryNext('=') ? punctBitwiseAndAssign
+						: eatTryNext('&') ? punctLogicalAnd 
+						: punctBitwiseAnd;
+		case '|': return eatTryNext('=') ? punctBitwiseOrAssign
+						: eatTryNext('|') ? punctLogicalOr 
+						: punctBitwiseOr;
+		case '^': return eatTryNext('=') ? punctBitwiseXorAssign : punctBitwiseXor;
+		case '~': return punctBitwiseNot;
+
+		case '+': return eatTryNext('=') ? punctPlusAssign
+						: eatTryNext('+') ? punctPlusPlus : punctPlus;
+		case '-': return eatTryNext('=') ? punctMinusAssign
+						: eatTryNext('-') ? punctMinusMinus
+						: eatTryNext('>') ? punctArrow 
+						: punctMinus;
+		case '*': return eatTryNext('=') ? punctTimesAssign : punctTimes;
+		case '/': return eatTryNext('=') ? punctDivideAssign : punctDivide;
+		case '%': return eatTryNext('=') ? punctModuloAssign : punctModulo;
+		default: return tokenUndefined;
+	}
 }
 
 void Lexer::next(void) {
-	/* escape space characters */
-	while (isspace(cur)) 
-		nextChar();
+	if (type == tokenEOF) 
+		return ;
 
-	// save location
-	token_line = cur_line;
-	token_lineChar = cur_lineChar;
-	token_pos = stream.tellg();
-
-	token = "";
-	type = tokenUndefined;
-
-	/* end of file */
-	if (cur == EOF) 
-		type = tokenEOF;
-	/* preprocessor */
-	else if (cur == '#') {
-		type = tokenPreprocess;
-		while (cur != '\n') {
-			if (cur == '\\') 		// considering '\\' for multiple lines
-				nextChar();
-			else 
-				eatCharNext();
-		}
-	}
-	/* comments */
-	else if (cur == '\\') {
-		type = tokenComment;
-		if (eatTryNext('\\')) {
-			while (cur != '\n') 
-				eatCharNext();
-		}
-		else if (eatTryNext('*')) {
-			while (true) {
-				// use short-curcuit rule
-				if (eatTryNext('*') && eatTryNext('\\')) 
-					break;
-				eatCharNext();
+	// escape insignificants
+	while (true) {
+		if (isspace(cur_char)) 
+			charNext();
+		else {
+			token = "";
+			token_line = cur_line;
+			token_lineChar = cur_lineChar;
+			token_pos = stream.tellg();
+			// preprocessor
+			if (eatTryNext('#')) {
+				while (cur_char != '\n' && cur_char != EOF) 
+					eatNext();
 			}
+			// comments
+			else if (eatTryNext('/')) {
+				if (eatTryNext('/')) {
+					while (cur_char != '\n' && cur_char != EOF) 
+						eatNext();
+				}
+				else if (eatTryNext('*')) {
+					while (true) {
+						if (eatTryNext('*') && eatTryNext('/')) 
+							break;
+						else 
+							eatNext();
+					}
+				}
+				else {
+					eatNext();
+					break;
+				}
+			}
+			// find something important
+			else {
+				eatNext();
+				break;
+			}
+			std::cerr << "match:" << token_line << ":" 
+				<< token_lineChar << ": " << token << std::endl;
 		}
-		else 
-			type = tokenUndefined;
 	}
-	/* Ident or keyword */
-	else if (isalpha(cur) || cur == '_') {
-		eatCharNext();
-		while (isalnum(cur) || cur == '_') 
-			eatCharNext();
 
-		type = match_keyword(token);
+	if (token[0] == EOF) 
+		type = tokenEOF;
+	// Ident or keyword
+	else if (isalpha(token[0]) || token[0] == '_') {
+		while (isalnum(cur_char) || cur_char == '_') 
+			eatNext();
+		type = keywordMatch(token);
 		if (type == tokenUndefined) 
 			type = tokenIdent;
 	}
-	/* integer and double */
-	else if (isdigit(cur)) {
-		type = tokenIdent;
-		eatCharNext();
-		if (eatTryNext('x') || eatTryNext('X')) {
-			while (isalnum(cur)) 
-				eatCharNext();
-		}
-		else while (isdigit(cur) || cur == '.') {
-			if (cur == '.') 
+	// integer or double
+	else if (isdigit(token[0])) {
+		type = tokenInt;
+		while (cur_char != EOF) {
+			if (isdigit(cur_char)) 
+				eatNext();
+			else if (cur_char == '.' && type == tokenInt) {
+				eatNext();
 				type = tokenDouble;
-			eatCharNext();
-		}
-		// deal with suffix
-		while (cur == 'u' || cur == 'U' ||
-			cur == 'l' || cur == 'L') 
-			eatCharNext();
-	}
-	/* string or character */
-	else if (cur == '"' || cur == '\'') {
-		type = (cur == '"' ? tokenStr : tokenChar);
-		eatCharNext();
-		if (type == tokenStr) {
-			while (cur != '"') {
-				if (cur == '\\') 
-					nextChar();
-				else 
-					eatCharNext();
 			}
+			else break;
 		}
-		else {
-			eatTryNext('\\');
-			eatCharNext();
-			if (!eatTryNext('\'')) 
+	}
+	// string
+	else if (token[0] == '"') {
+		type = tokenStr;
+		while (!eatTryNext('"')) {
+			if (cur_char == EOF) {	// end without '"'
 				type = tokenUndefined;
+				break;
+			}
+			eatTryNext('\\');
+			eatNext();
 		}
-		eatCharNext();
 	}
-	/* punctuation or a unknown character */
+	// character
+	else if (token[0] == '\'') {
+		type = tokenChar;
+		eatTryNext('\\');
+		eatNext();
+		if (!eatTryNext('\'')) 
+			type = tokenUndefined;
+	}
+	// punctuation or an unrecognised character
 	else {
-		type = match_punct();
+		type = lexerPunct();
 	}
-}
-
-char Lexer::nextChar(void) {
-	cur = stream.get();
-
-	if (cur == '\n') {
-		cur_line ++;
-		cur_lineChar = 0;
-	}
-	else if (cur != EOF) 
-		cur_lineChar ++;
-
-	return cur;
-}
-
-void Lexer::eatCharNext(void) {
-	token.push_back(cur);
-	nextChar();
-}
-
-bool Lexer::eatTryNext(char ch) {
-	if (ch == cur) {
-		token.push_back(cur);
-		nextChar();
-		return true;
-	}
-	
-	return false;
 }
