@@ -14,7 +14,8 @@ int main(void) {
 	std::ifstream ifstrm(filename);
 	Lexer lex(ifstrm);
 	lex.next();
-	parserProgramme(lex);
+	Parser p(std::cout);
+	p.parserProgramme(lex);
 
 	return 0;
 }

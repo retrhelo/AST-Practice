@@ -3,12 +3,45 @@
 #pragma once
 
 #include <string>
+#include <ostream>
 
 #include "lexer"
-
-bool parserProgramme(Lexer &lex, int indent = 0);
 
 void enterDebug(std::string str);
 void debug_msg(std::string &str);
 void debug_msg(char *str);
 void exitDebug(void);
+
+class Parser {
+public: 
+	Parser(std::ostream &ostrm): 
+		stream(ostrm) {}
+
+	bool parserProgramme(Lexer &lex, int indent = 0);
+private: 
+	std::ostream &stream;
+
+	void println_indent(std::string, int indent);
+	void queue_clean(int indent);
+
+	bool parserVarDef(Lexer &lex, int indent);
+	bool parserStructUnionDef(Lexer &lex, int indent);
+	bool parserEnumDef(Lexer &lex, int indent);
+	bool parserFuncDef(Lexer &lex, int indent);
+	bool parserFuncType(Lexer &lex, int indent);
+	bool parserArgList(Lexer &lex, int indent);
+	bool parserArg(Lexer &lex, int indent);
+	bool parserComplex(Lexer &lex, int indent);
+	bool parserJump(Lexer &lex, int indent);
+	bool parserIf(Lexer &lex, int indent);
+	bool parserWhile(Lexer &lex, int indent);
+	bool parserDoWhile(Lexer &lex, int indent);
+	bool parserFor(Lexer &lex, int indent);
+	bool parserExpr(Lexer &lex, int indent);
+	bool parserUnaryExpr(Lexer &lex, int indent);
+	bool parserBinaryExpr(Lexer &lex, int indent);
+	bool parserTriExpr(Lexer &lex, int indent);
+	bool parserFuncCall(Lexer &lex, int indent);
+	bool parserUnaryOp(Lexer &lex, int indent);
+	bool parserBinaryOp(Lexer &lex, int indent);
+};

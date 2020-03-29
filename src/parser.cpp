@@ -26,27 +26,6 @@ void exitDebug(void) {
 	s.pop_back();
 }
 
-static bool parserVarDef(Lexer &lex, int indent);
-static bool parserStructUnionDef(Lexer &lex, int indent);
-static bool parserEnumDef(Lexer &lex, int indent);
-static bool parserFuncDef(Lexer &lex, int indent);
-static bool parserFuncType(Lexer &lex, int indent);
-static bool parserArgList(Lexer &lex, int indent);
-static bool parserArg(Lexer &lex, int indent);
-static bool parserComplex(Lexer &lex, int indent);
-static bool parserJump(Lexer &lex, int indent);
-static bool parserIf(Lexer &lex, int indent);
-static bool parserWhile(Lexer &lex, int indent);
-static bool parserDoWhile(Lexer &lex, int indent);
-static bool parserFor(Lexer &lex, int indent);
-static bool parserExpr(Lexer &lex, int indent);
-static bool parserUnaryExpr(Lexer &lex, int indent);
-static bool parserBinaryExpr(Lexer &lex, int indent);
-static bool parserTriExpr(Lexer &lex, int indent);
-static bool parserFuncCall(Lexer &lex, int indent);
-static bool parserUnaryOp(Lexer &lex, int indent);
-static bool parserBinaryOp(Lexer &lex, int indent);
-
 static std::string decoder(token_t type) {
 	if (type == tokenUndefined) return "Undefined";
 	else if (type == tokenEOF) return "EOF";
@@ -111,13 +90,13 @@ static bool typeTryMatchNext(Lexer &lex) {
 		|| tokenTryMatchNext(lex, keywordEnum);
 }
 
-static void println_indent(std::string str, int indent) {
+void Parser::println_indent(std::string str, int indent) {
 	while (indent --) 
-		std::cout << '\t';
-	std::cout << str << std::endl;
+		stream << '\t';
+	stream << str << std::endl;
 }
 
-static void queue_clean(int indent) {
+void Parser::queue_clean(int indent) {
 	for (token_pair &it : queue) 
 		println_indent(decoder(it.type) + ": " + it.token, indent);
 	queue.clear();
@@ -131,7 +110,7 @@ static void queue_clean(int indent) {
 		return false; \
 	} while (false) 
 
-bool parserProgramme(Lexer &lex, int indent) {
+bool Parser::parserProgramme(Lexer &lex, int indent) {
 	enterDebug("Programme");
 	bool ret;
 	
@@ -174,7 +153,7 @@ bool parserProgramme(Lexer &lex, int indent) {
 /* pre-match: 
 	[<storage-type>] <type> [{"*"}] <identifier> 
 */
-static bool parserVarDef(Lexer &lex, int indent) {
+bool Parser::parserVarDef(Lexer &lex, int indent) {
 	enterDebug("VarDef");
 	println_indent("VarDef", indent);
 
@@ -194,7 +173,7 @@ static bool parserVarDef(Lexer &lex, int indent) {
 /* pre-matched: 
 	"struct" | "union"
 */
-static bool parserStructUnionDef(Lexer &lex, int indent) {
+bool Parser::parserStructUnionDef(Lexer &lex, int indent) {
 	enterDebug("StructUnionDef");
 	println_indent("Struct/Union Def", indent);
 
@@ -228,7 +207,7 @@ static bool parserStructUnionDef(Lexer &lex, int indent) {
 /* pre-matched: 
 	"enum" 
 */
-static bool parserEnumDef(Lexer &lex, int indent) {
+bool Parser::parserEnumDef(Lexer &lex, int indent) {
 	enterDebug("EnumDef");
 	println_indent("Enum Def", indent);
 
@@ -258,7 +237,7 @@ static bool parserEnumDef(Lexer &lex, int indent) {
 /* pre-matched: 
 	[<func-type>] <type> <identifier> "("
 */
-static bool parserFuncDef(Lexer &lex, int indent) {
+bool Parser::parserFuncDef(Lexer &lex, int indent) {
 	enterDebug("FuncDef");
 	println_indent("Func Def", indent);
 
@@ -292,7 +271,7 @@ static bool parserFuncDef(Lexer &lex, int indent) {
 
 /* pre-matched: 
 */
-static bool parserArgList(Lexer &lex, int indent) {
+bool Parser::parserArgList(Lexer &lex, int indent) {
 	enterDebug("ArgList");
 	println_indent("Arg List", indent);
 
@@ -311,7 +290,7 @@ static bool parserArgList(Lexer &lex, int indent) {
 
 /* pre-matched: 
 */
-static bool parserArg(Lexer &lex, int indent) {
+bool Parser::parserArg(Lexer &lex, int indent) {
 	enterDebug("Arg");
 	println_indent("Arg", indent);
 
@@ -331,7 +310,7 @@ static bool parserArg(Lexer &lex, int indent) {
 
 /* pre-matched: 
 */
-static bool parserComplex(Lexer &lex, int indent) {
+bool Parser::parserComplex(Lexer &lex, int indent) {
 	enterDebug("Complex");
 	println_indent("Complex", indent);
 	bool ret = true;
@@ -386,7 +365,7 @@ static bool parserComplex(Lexer &lex, int indent) {
 /* pre-matched: 
 	"break" | "continue" | "return"
 */
-static bool parserJump(Lexer &lex, int indent) {
+bool Parser::parserJump(Lexer &lex, int indent) {
 	enterDebug("Jump");
 	println_indent("Jump", indent);
 
@@ -402,7 +381,7 @@ static bool parserJump(Lexer &lex, int indent) {
 /* pre-matched: 
 	"if"
 */
-static bool parserIf(Lexer &lex, int indent) {
+bool Parser::parserIf(Lexer &lex, int indent) {
 	enterDebug("If");
 	println_indent("If", indent);
 
@@ -432,7 +411,7 @@ static bool parserIf(Lexer &lex, int indent) {
 /* pre-matched: 
 	"while"
 */
-static bool parserWhile(Lexer &lex, int indent) {
+bool Parser::parserWhile(Lexer &lex, int indent) {
 	enterDebug("While");
 	println_indent("While", indent);
 
@@ -462,7 +441,7 @@ static bool parserWhile(Lexer &lex, int indent) {
 /* pre-matched: 
 	"do"
 */
-static bool parserDoWhile(Lexer &lex, int indent) {
+bool Parser::parserDoWhile(Lexer &lex, int indent) {
 	enterDebug("DoWhile");
 	println_indent("DoWhile", indent);
 	queue_clean(indent);
@@ -489,7 +468,7 @@ static bool parserDoWhile(Lexer &lex, int indent) {
 /* pre-matched: 
 	"for"
 */
-static bool parserFor(Lexer &lex, int indent) {
+bool Parser::parserFor(Lexer &lex, int indent) {
 	enterDebug("For");
 	println_indent("For", indent);
 
@@ -582,7 +561,7 @@ static bool literalTryMatchNext(Lexer &lex) {
 /* pre-matched: 
 */
 
-static bool parserExpr(Lexer &lex, int indent) {
+bool Parser::parserExpr(Lexer &lex, int indent) {
 	enterDebug("Expression");
 	println_indent("Expression", indent);
 
@@ -633,7 +612,7 @@ static bool parserExpr(Lexer &lex, int indent) {
 /* pre-matched: 
 	<unary-op> 
 */
-static bool parserUnaryExpr(Lexer &lex, int indent) {
+bool Parser::parserUnaryExpr(Lexer &lex, int indent) {
 	enterDebug("UnaryExpr");
 	println_indent("Unary Expression", indent);
 
@@ -648,7 +627,7 @@ static bool parserUnaryExpr(Lexer &lex, int indent) {
 /* pre-matched: 
 	<identifier> "("
 */
-static bool parserFuncCall(Lexer &lex, int indent) {
+bool Parser::parserFuncCall(Lexer &lex, int indent) {
 	enterDebug("FuncCall");
 	println_indent("Function Call", indent);
 
