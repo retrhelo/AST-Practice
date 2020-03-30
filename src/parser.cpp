@@ -312,9 +312,9 @@ bool Parser::parserComplex(Lexer &lex, int indent) {
 	println_indent("Complex", indent);
 	bool ret = true;
 
+	queue_clean(indent);
 	if (!tokenTryMatchNext(lex, punctLBrace)) 
 		debug_error();
-	queue_clean(indent);
 	while (ret) {
 		if (tokenTryMatchNext(lex, punctRBrace)) {
 			queue_clean(indent);
@@ -398,6 +398,17 @@ bool Parser::parserIf(Lexer &lex, int indent) {
 		ret = parserExpr(lex, indent + 1) && tokenTryMatchNext(lex, punctSemicolon);
 		queue_clean(indent);
 	}
+	if (tokenTryMatchNext(lex, keywordElse)) {
+		queue_clean(indent);
+		if (tokenTryMatchNext(lex, keywordIf)) 
+			ret = parserIf(lex, indent + 1);
+		else if (lex.get_type() == punctLBrace) 
+			ret = parserComplex(lex, indent + 1);
+		else {
+			ret = parserExpr(lex, indent + 1) && tokenTryMatchNext(lex, punctSemicolon);
+			queue_clean(indent);
+		}
+	}
 
 	if (false == ret) 
 		debug_msg("invalid token " + lex.get_token());
@@ -480,17 +491,16 @@ bool Parser::parserFor(Lexer &lex, int indent) {
 			{}
 			else debug_error();
 		}
-		if (!tokenTryMatchNext(lex, punctSemicolon)) 
-			debug_error();
-		else queue_clean(indent);
 
-		if (!parserExpr(lex, indent + 1) && 
+		if (parserExpr(lex, indent + 1) && 
 			tokenTryMatchNext(lex, punctSemicolon)) 
-			debug_error();
+			;
+		else debug_error();
 		queue_clean(indent);
-		if (!parserExpr(lex, indent + 1) && 
+		if (parserExpr(lex, indent + 1) && 
 			tokenTryMatchNext(lex, punctRParen)) 
-			debug_error();
+			;
+		else debug_error();
 		queue_clean(indent);
 		if (!parserComplex(lex, indent + 1)) 
 			debug_error();
