@@ -1,1 +1,17 @@
 /* -*- C++ -*- */
+
+#include <iostream>
+#include <string>
+
+#include "lexer"
+
+class Format {
+public: 
+	Format(std::ostream &o): stream(o) {}
+
+	bool formatProgramme(Lexer &lex);
+private: 
+	std::ostream &stream;
+
+	void formatEnumDef(Lexer &lex);
+};
