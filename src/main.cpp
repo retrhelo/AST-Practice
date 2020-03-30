@@ -4,6 +4,7 @@
 
 #include "../inc/parser"
 #include "../inc/lexer"
+#include "../inc/format"
 
 #define STR_EQU(pstr1, pstr2) \
 	!strcmp(pstr1, pstr2)
@@ -59,12 +60,24 @@ int main(int argc, char *argv[]) {
 	lex.next();
 	std::ofstream ostrm(outfile);
 	if (ostrm.is_open()) {
-		Parser p(ostrm);
-		if (mode) p.parserProgramme(lex);
+		if (mode) {
+			Parser p(ostrm);
+			p.parserProgramme(lex);
+		}
+		else {
+			Format f(ostrm);
+			f.formatProgramme(lex);
+		}
 	}
 	else {
-		Parser p(std::cout);
-		if (mode) p.parserProgramme(lex);
+		if (mode) {
+			Parser p(ostrm);
+			p.parserProgramme(lex);
+		}
+		else {
+			Format f(ostrm);
+			f.formatProgramme(lex);
+		}
 	}
 
 	return 0;

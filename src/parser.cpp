@@ -183,19 +183,16 @@ bool Parser::parserStructUnionDef(Lexer &lex, int indent) {
 	{
 		// matching fields
 		while (typeTryMatchNext(lex)) {
-			/*if (!tokenTryMatchNext(lex, tokenIdent)) */
-				//debug_error();
-			//if (false == parserVarDef(lex, indent + 1)) 
-				/*debug_error();*/
 			if (tokenTryMatchNext(lex, tokenIdent) && 
 				parserVarDef(lex, indent + 1)) 
 			{}
-			else 
-				debug_error();
+			else debug_error();
 		}
 
-		if (!tokenTryMatchNext(lex, punctRBrace)) 
-			debug_error();
+		if (tokenTryMatchNext(lex, punctRBrace) 
+			&& tokenTryMatchNext(lex, punctSemicolon)) 
+			;
+		else debug_error();
 	}
 	else debug_error();
 	queue_clean(indent);

@@ -5,29 +5,33 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+Format	inc/format	/^	Format(std::ostream &o): stream(o) {}$/;"	f	class:Format	file:
+Format	inc/format	/^class Format {$/;"	c	file:
 Lexer	inc/lexer	/^	Lexer(std::istream &s): $/;"	f	class:Lexer	file:
 Lexer	inc/lexer	/^class Lexer {$/;"	c	file:
-__anon11f7c11a0208	src/parser.cpp	/^typedef struct {$/;"	s	file:
+Parser	inc/parser	/^	Parser(std::ostream &ostrm): $/;"	f	class:Parser	file:
+Parser	inc/parser	/^class Parser {$/;"	c	file:
+STR_EQU	src/main.cpp	/^#define STR_EQU(/;"	d	file:
 __anon77b4158e0103	inc/lexer	/^typedef enum {$/;"	g	file:
+binaryTryMatchNext	src/parser.cpp	/^static bool binaryTryMatchNext(Lexer &lex) {$/;"	f	typeref:typename:bool	file:
 charNext	src/lexer.cpp	/^char Lexer::charNext(void) {$/;"	f	class:Lexer	typeref:typename:char
 cur_char	inc/lexer	/^	char cur_char;$/;"	m	class:Lexer	typeref:typename:char	file:
 cur_line	inc/lexer	/^	int cur_line, cur_lineChar;$/;"	m	class:Lexer	typeref:typename:int	file:
 cur_lineChar	inc/lexer	/^	int cur_line, cur_lineChar;$/;"	m	class:Lexer	typeref:typename:int	file:
 debug_error	src/parser.cpp	/^#define debug_error(/;"	d	file:
 debug_msg	src/parser.cpp	/^void debug_msg(char *str) {$/;"	f	typeref:typename:void
-debug_msg	src/parser.cpp	/^void debug_msg(std::string &str) {$/;"	f	typeref:typename:void
+debug_msg	src/parser.cpp	/^void debug_msg(std::string str) {$/;"	f	typeref:typename:void
 decoder	src/parser.cpp	/^static std::string decoder(token_t type) {$/;"	f	typeref:typename:std::string	file:
 eatNext	src/lexer.cpp	/^char Lexer::eatNext(void) {$/;"	f	class:Lexer	typeref:typename:char
 eatTryNext	src/lexer.cpp	/^bool Lexer::eatTryNext(char ch) {$/;"	f	class:Lexer	typeref:typename:bool
 enterDebug	src/parser.cpp	/^void enterDebug(std::string str) {$/;"	f	typeref:typename:void
 exitDebug	src/parser.cpp	/^void exitDebug(void) {$/;"	f	typeref:typename:void
+formatProgramme	src/format.cpp	/^bool Format::formatProgramme(Lexer &lex) {$/;"	f	class:Format	typeref:typename:bool
 get_line	inc/lexer	/^	int get_line(void) { return token_line;}$/;"	f	class:Lexer	typeref:typename:int	file:
 get_lineChar	inc/lexer	/^	int get_lineChar(void) { return token_lineChar;}$/;"	f	class:Lexer	typeref:typename:int	file:
 get_pos	inc/lexer	/^	pos_t get_pos(void) { return token_pos;}$/;"	f	class:Lexer	typeref:typename:pos_t	file:
 get_token	inc/lexer	/^	std::string get_token(void) { return token;}$/;"	f	class:Lexer	typeref:typename:std::string	file:
 get_type	inc/lexer	/^	token_t get_type(void) { return type;}$/;"	f	class:Lexer	typeref:typename:token_t	file:
-is_storage_type	src/parser.cpp	/^static inline bool is_storage_type(token_t type) {$/;"	f	typeref:typename:bool	file:
-is_type	src/parser.cpp	/^static inline bool is_type(token_t type) {$/;"	f	typeref:typename:bool	file:
 keywordAuto	inc/lexer	/^	keywordConst, keywordAuto, keywordStatic, keywordVolatile, keywordExtern, $/;"	e	enum:__anon77b4158e0103	file:
 keywordBreak	inc/lexer	/^	keywordReturn, keywordBreak, keywordContinue, $/;"	e	enum:__anon77b4158e0103	file:
 keywordChar	inc/lexer	/^	keywordVoid, keywordChar, keywordShort, keywordInt, $/;"	e	enum:__anon77b4158e0103	file:
@@ -56,20 +60,30 @@ keywordVoid	inc/lexer	/^	keywordVoid, keywordChar, keywordShort, keywordInt, $/;
 keywordVolatile	inc/lexer	/^	keywordConst, keywordAuto, keywordStatic, keywordVolatile, keywordExtern, $/;"	e	enum:__anon77b4158e0103	file:
 keywordWhile	inc/lexer	/^	keywordIf, keywordElse, keywordWhile, keywordDo, keywordFor, $/;"	e	enum:__anon77b4158e0103	file:
 lexerPunct	src/lexer.cpp	/^token_t Lexer::lexerPunct(void) {$/;"	f	class:Lexer	typeref:typename:token_t
+literalTryMatchNext	src/parser.cpp	/^static bool literalTryMatchNext(Lexer &lex) {$/;"	f	typeref:typename:bool	file:
+main	src/format_test.cpp	/^int main(void) {$/;"	f	typeref:typename:int
 main	src/lexer_test.cpp	/^int main(void) {$/;"	f	typeref:typename:int
+main	src/main.cpp	/^int main(int argc, char *argv[]) {$/;"	f	typeref:typename:int
+main	src/parser_test.cpp	/^int main(void) {$/;"	f	typeref:typename:int
 next	src/lexer.cpp	/^void Lexer::next(void) {$/;"	f	class:Lexer	typeref:typename:void
-parserArg	src/parser.cpp	/^static bool parserArg(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserArgList	src/parser.cpp	/^static bool parserArgList(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserComplex	src/parser.cpp	/^static bool parserComplex(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserEnumDef	src/parser.cpp	/^static bool parserEnumDef(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserFuncDef	src/parser.cpp	/^static bool parserFuncDef(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserIf	src/parser.cpp	/^static bool parserIf(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserJump	src/parser.cpp	/^static bool parserJump(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserProgramme	src/parser.cpp	/^bool parserProgramme(Lexer Lexer &lexlex, int indent) {$/;"	f	typeref:typename:bool
-parserStructUnionDef	src/parser.cpp	/^static bool parserStructUnionDef(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
-parserVarDef	src/parser.cpp	/^static bool parserVarDef(Lexer &lex, int indent) {$/;"	f	typeref:typename:bool	file:
+parserArg	src/parser.cpp	/^bool Parser::parserArg(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserArgList	src/parser.cpp	/^bool Parser::parserArgList(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserComplex	src/parser.cpp	/^bool Parser::parserComplex(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserDoWhile	src/parser.cpp	/^bool Parser::parserDoWhile(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserEnumDef	src/parser.cpp	/^bool Parser::parserEnumDef(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserExpr	src/parser.cpp	/^bool Parser::parserExpr(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserFor	src/parser.cpp	/^bool Parser::parserFor(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserFuncCall	src/parser.cpp	/^bool Parser::parserFuncCall(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserFuncDef	src/parser.cpp	/^bool Parser::parserFuncDef(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserIf	src/parser.cpp	/^bool Parser::parserIf(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserJump	src/parser.cpp	/^bool Parser::parserJump(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserProgramme	src/parser.cpp	/^bool Parser::parserProgramme(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserStructUnionDef	src/parser.cpp	/^bool Parser::parserStructUnionDef(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserUnaryExpr	src/parser.cpp	/^bool Parser::parserUnaryExpr(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserVarDef	src/parser.cpp	/^bool Parser::parserVarDef(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
+parserWhile	src/parser.cpp	/^bool Parser::parserWhile(Lexer &lex, int indent) {$/;"	f	class:Parser	typeref:typename:bool
 pos_t	inc/lexer	/^	typedef std::streampos pos_t;$/;"	t	class:Lexer	typeref:typename:std::streampos	file:
-println_indent	src/parser.cpp	/^static void println_indent(std::string str, int indent) {$/;"	f	typeref:typename:void	file:
+println_indent	src/parser.cpp	/^void Parser::println_indent(std::string str, int indent) {$/;"	f	class:Parser	typeref:typename:void
 punctArrow	inc/lexer	/^	punctSemicolon, punctArrow, $/;"	e	enum:__anon77b4158e0103	file:
 punctAssign	inc/lexer	/^	punctAssign, $/;"	e	enum:__anon77b4158e0103	file:
 punctBitwiseAnd	inc/lexer	/^	punctBitwiseAnd, punctBitwiseAndAssign, $/;"	e	enum:__anon77b4158e0103	file:
@@ -116,12 +130,14 @@ punctShrAssign	inc/lexer	/^	punctShr, punctShrAssign, $/;"	e	enum:__anon77b4158e
 punctTimes	inc/lexer	/^	punctTimes, punctTimesAssign, $/;"	e	enum:__anon77b4158e0103	file:
 punctTimesAssign	inc/lexer	/^	punctTimes, punctTimesAssign, $/;"	e	enum:__anon77b4158e0103	file:
 queue	src/parser.cpp	/^std::deque<token_pair> queue;$/;"	v	typeref:typename:std::deque<token_pair>
-queue_clean	src/parser.cpp	/^static void queue_clean(int indent) {$/;"	f	typeref:typename:void	file:
+queue_clean	src/parser.cpp	/^void Parser::queue_clean(int indent) {$/;"	f	class:Parser	typeref:typename:void
 s	src/parser.cpp	/^std::deque<std::string> s;$/;"	v	typeref:typename:std::deque<std::string>
 storageTypeTryMatchNext	src/parser.cpp	/^static bool storageTypeTryMatchNext(Lexer &lex) {$/;"	f	typeref:typename:bool	file:
+stream	inc/format	/^	std::ostream &stream;$/;"	m	class:Format	typeref:typename:std::ostream &	file:
 stream	inc/lexer	/^	std::istream &stream;$/;"	m	class:Lexer	typeref:typename:std::istream &	file:
+stream	inc/parser	/^	std::ostream &stream;$/;"	m	class:Parser	typeref:typename:std::ostream &	file:
 token	inc/lexer	/^	std::string token;$/;"	m	class:Lexer	typeref:typename:std::string	file:
-token	src/parser.cpp	/^	std::string token;$/;"	m	struct:__anon11f7c11a0208	typeref:typename:std::string	file:
+token	src/parser.cpp	/^	std::string token;$/;"	m	class:token_pair	typeref:typename:std::string	file:
 tokenChar	inc/lexer	/^	tokenChar, $/;"	e	enum:__anon77b4158e0103	file:
 tokenDouble	inc/lexer	/^	tokenDouble, $/;"	e	enum:__anon77b4158e0103	file:
 tokenEOF	inc/lexer	/^	tokenEOF, $/;"	e	enum:__anon77b4158e0103	file:
@@ -133,9 +149,11 @@ tokenTryMatchNext	src/parser.cpp	/^static bool tokenTryMatchNext(Lexer &lex, tok
 tokenUndefined	inc/lexer	/^	tokenUndefined, $/;"	e	enum:__anon77b4158e0103	file:
 token_line	inc/lexer	/^	int token_line;$/;"	m	class:Lexer	typeref:typename:int	file:
 token_lineChar	inc/lexer	/^	int token_lineChar;$/;"	m	class:Lexer	typeref:typename:int	file:
-token_pair	src/parser.cpp	/^} token_pair;$/;"	t	typeref:struct:__anon11f7c11a0208	file:
+token_pair	src/parser.cpp	/^	token_pair(token_t tp, std::string tk): $/;"	f	class:token_pair	file:
+token_pair	src/parser.cpp	/^class token_pair {$/;"	c	file:
 token_pos	inc/lexer	/^	pos_t token_pos;$/;"	m	class:Lexer	typeref:typename:pos_t	file:
 token_t	inc/lexer	/^} token_t;$/;"	t	typeref:enum:__anon77b4158e0103	file:
 type	inc/lexer	/^	token_t type;$/;"	m	class:Lexer	typeref:typename:token_t	file:
-type	src/parser.cpp	/^	token_t type;$/;"	m	struct:__anon11f7c11a0208	typeref:typename:token_t	file:
+type	src/parser.cpp	/^	token_t type;$/;"	m	class:token_pair	typeref:typename:token_t	file:
 typeTryMatchNext	src/parser.cpp	/^static bool typeTryMatchNext(Lexer &lex) {$/;"	f	typeref:typename:bool	file:
+unaryTryMatchNext	src/parser.cpp	/^static bool unaryTryMatchNext(Lexer &lex) {$/;"	f	typeref:typename:bool	file:

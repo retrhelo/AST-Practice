@@ -16,12 +16,14 @@ LINK_FLAGS=
 SRC= \
 src/main.cpp \
 src/parser.cpp \
-src/lexer.cpp  
+src/lexer.cpp \
+src/format.cpp
 
 OBJ= \
 obj/main.o \
 obj/parser.o \
-obj/lexer.o 
+obj/lexer.o \
+obj/format.o
 
 default: $(OBJ) build
 	$(CC) $(OBJ) -o build/$(TARGET)
@@ -35,6 +37,8 @@ obj/parser.o: src/parser.cpp obj
 	$(CC) $(C_FLAGS) src/parser.cpp -o obj/parser.o
 obj/lexer.o: src/lexer.cpp obj
 	$(CC) $(C_FLAGS) src/lexer.cpp -o obj/lexer.o
+obj/format.o: src/format.cpp obj
+	$(CC) $(C_FLAGS) src/format.cpp -o obj/format.o
 build: 
 	mkdir build
 obj: 
