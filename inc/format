@@ -1,5 +1,7 @@
 /* -*- C++ -*- */
 
+#pragma once
+
 #include <iostream>
 #include <string>
 
@@ -9,9 +11,15 @@ class Format {
 public: 
 	Format(std::ostream &o): stream(o) {}
 
-	bool formatProgramme(Lexer &lex);
+	bool formatProgramme(Lexer &lex, int indent = 0);
 private: 
 	std::ostream &stream;
 
-	void formatEnumDef(Lexer &lex);
+	bool formatFuncDef(Lexer &lex, int indent);
+	bool formatComplex(Lexer &lex, int indent);
+	bool formatIf(Lexer &lex, int indent);
+	bool formatWhile(Lexer &lex, int indent);
+	bool formatDoWhile(Lexer &lex, int indent);
+	bool formatFor(Lexer &lex, int indent);
+	bool formatExpr(Lexer &lex, int indent);
 };

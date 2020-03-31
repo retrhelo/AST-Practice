@@ -7,11 +7,6 @@
 
 #include "lexer"
 
-void enterDebug(std::string str);
-void debug_msg(std::string &str);
-void debug_msg(char *str);
-void exitDebug(void);
-
 class Parser {
 public: 
 	Parser(std::ostream &ostrm): 

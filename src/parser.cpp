@@ -6,23 +6,23 @@
 
 #pragma GCC dependence "../inc/parser"
 
-std::deque<std::string> s;
+static std::deque<std::string> s;
 
-void enterDebug(std::string str) {
+static void enterDebug(std::string str) {
 	s.push_back(str);
 }
 
-void debug_msg(std::string str) {
+static void debug_msg(std::string str) {
 	std::cerr << s.back() << ": " 
 		<< str << std::endl;
 }
 
-void debug_msg(char *str) {
+static void debug_msg(char *str) {
 	std::cerr << s.back() << ": " 
 		<< str << std::endl;
 }
 
-void exitDebug(void) {
+static void exitDebug(void) {
 	s.pop_back();
 }
 
@@ -48,7 +48,7 @@ public:
 		type(tp), token(tk) {}
 };
 
-std::deque<token_pair> queue;
+static std::deque<token_pair> queue;
 
 static void tokenMatchNext(Lexer &lex) {
 	queue.push_back(token_pair(lex.get_type(), lex.get_token()));
@@ -508,8 +508,8 @@ bool Parser::parserFor(Lexer &lex, int indent) {
 			;
 		else debug_error();
 		queue_clean(indent);
-		if (parserComplex(lex, indent + 1)) 
-			;
+		if (lex.get_type() == punctLBrace) 
+			parserComplex(lex, indent + 1);
 		else if (parserExpr(lex, indent + 1) && tokenTryMatchNext(lex, punctSemicolon)) 
 			queue_clean(indent);
 		else debug_error();
