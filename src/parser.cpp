@@ -76,7 +76,7 @@ static bool storageTypeTryMatchNext(Lexer &lex) {
 }
 
 static bool typeTryMatchNext(Lexer &lex) {
-	return tokenTryMatchNext(lex, keywordVoid) 
+	bool ret =  tokenTryMatchNext(lex, keywordVoid) 
 		||tokenTryMatchNext(lex, keywordChar) 
 		|| tokenTryMatchNext(lex, keywordShort) 
 		|| tokenTryMatchNext(lex, keywordInt) 
@@ -84,10 +84,16 @@ static bool typeTryMatchNext(Lexer &lex) {
 		|| tokenTryMatchNext(lex, keywordSigned) 
 		|| tokenTryMatchNext(lex, keywordLong) 
 		|| tokenTryMatchNext(lex, keywordFloat) 
-		|| tokenTryMatchNext(lex, keywordDouble) 
-		|| tokenTryMatchNext(lex, keywordStruct) 
-		|| tokenTryMatchNext(lex, keywordUnion) 
-		|| tokenTryMatchNext(lex, keywordEnum);
+		|| tokenTryMatchNext(lex, keywordDouble);
+
+	if (!ret && tokenTryMatchNext(lex, keywordStruct) ||
+		tokenTryMatchNext(lex, keywordUnion) ||
+		tokenTryMatchNext(lex, keywordEnum)) 
+	{
+		ret = tokenTryMatchNext(lex, tokenIdent);
+	}
+
+	return ret;
 }
 
 void Parser::println_indent(std::string str, int indent) {
@@ -177,10 +183,10 @@ bool Parser::parserStructUnionDef(Lexer &lex, int indent) {
 	enterDebug("StructUnionDef");
 	println_indent("Struct/Union Def", indent);
 
-	queue_clean(indent);
 	if (tokenTryMatchNext(lex, tokenIdent) && 
 		tokenTryMatchNext(lex, punctLBrace)) 
 	{
+		queue_clean(indent);
 		// matching fields
 		while (typeTryMatchNext(lex)) {
 			if (tokenTryMatchNext(lex, tokenIdent) && 
@@ -232,7 +238,7 @@ bool Parser::parserEnumDef(Lexer &lex, int indent) {
 }
 
 /* pre-matched: 
-	[<func-type>] <type> <identifier> "("
+	[<func-type>] <type> [{"*"}] <identifier> "("
 */
 bool Parser::parserFuncDef(Lexer &lex, int indent) {
 	enterDebug("FuncDef");
@@ -312,9 +318,9 @@ bool Parser::parserComplex(Lexer &lex, int indent) {
 	println_indent("Complex", indent);
 	bool ret = true;
 
-	queue_clean(indent);
 	if (!tokenTryMatchNext(lex, punctLBrace)) 
 		debug_error();
+	queue_clean(indent);
 	while (ret) {
 		if (tokenTryMatchNext(lex, punctRBrace)) {
 			queue_clean(indent);
@@ -502,8 +508,11 @@ bool Parser::parserFor(Lexer &lex, int indent) {
 			;
 		else debug_error();
 		queue_clean(indent);
-		if (!parserComplex(lex, indent + 1)) 
-			debug_error();
+		if (parserComplex(lex, indent + 1)) 
+			;
+		else if (parserExpr(lex, indent + 1) && tokenTryMatchNext(lex, punctSemicolon)) 
+			queue_clean(indent);
+		else debug_error();
 	}
 	else debug_error();
 

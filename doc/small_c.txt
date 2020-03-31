@@ -31,7 +31,7 @@
 						[{var-def}] "}" ";"
 <enum-def> ::= "enum" <identifier> "{" [{ <identifier> "," }] "}" ";"
 
-<func-def> ::= [<func-type>] <type> <identifier> 
+<func-def> ::= [<func-type>] <type> [{"*"}] <identifier> 
 				"(" "void" | <arg-list> ")" ( ";" | <complex> )
 <func-type> ::= "const" | "static"
 

@@ -16,7 +16,8 @@ int main(void) {
 	lex.next();
 	while (lex.get_type() != tokenEOF) {
 		std::cout << lex.get_line() << ":" << lex.get_lineChar() 
-			<< ": " << lex.get_token() << std::endl;
+			<< ": "  << lex.get_type() << ": "
+			<< lex.get_token() << std::endl;
 		lex.next();
 	}
 

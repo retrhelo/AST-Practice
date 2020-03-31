@@ -124,7 +124,6 @@ void Lexer::next(void) {
 			token = "";
 			token_line = cur_line;
 			token_lineChar = cur_lineChar;
-			token_pos = stream.tellg();
 			// preprocessor
 			if (eatTryNext('#')) {
 				while (cur_char != '\n' && cur_char != EOF) 
@@ -175,12 +174,21 @@ void Lexer::next(void) {
 		while (cur_char != EOF) {
 			if (isdigit(cur_char)) 
 				eatNext();
+			else if (token.length() == 1 && token[0] == '0' && tolower(cur_char) == 'x') {
+				eatNext();
+				while (isalnum(cur_char)) eatNext();
+				break;
+			}
 			else if (cur_char == '.' && type == tokenInt) {
 				eatNext();
 				type = tokenDouble;
 			}
 			else break;
 		}
+		// suffix
+		while (cur_char == 'f' || cur_char == 'l' || cur_char == 'L' || 
+			cur_char == 'u' || cur_char == 'U') 
+			eatNext();
 	}
 	// string
 	else if (token[0] == '"') {

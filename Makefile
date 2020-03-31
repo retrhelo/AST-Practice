@@ -27,6 +27,9 @@ obj/format.o
 
 default: $(OBJ) build
 	$(CC) $(OBJ) -o build/$(TARGET)
+	
+lex: obj/lexer.o obj/lexer_test.o build
+	$(CC) obj/lexer.o obj/lexer_test.o -o build/lexer_test
 
 tag: src inc
 	ctags -R --language-force=C++ src/* inc/*
@@ -39,6 +42,8 @@ obj/lexer.o: src/lexer.cpp obj
 	$(CC) $(C_FLAGS) src/lexer.cpp -o obj/lexer.o
 obj/format.o: src/format.cpp obj
 	$(CC) $(C_FLAGS) src/format.cpp -o obj/format.o
+obj/lexer_test.o: src/lexer_test.cpp obj
+	$(CC) $(C_FLAGS) src/lexer_test.cpp -o obj/lexer_test.o
 build: 
 	mkdir build
 obj: 

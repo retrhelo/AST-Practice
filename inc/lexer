@@ -55,8 +55,6 @@ typedef enum {
 
 class Lexer {
 public: 
-	typedef std::streampos pos_t;
-
 	Lexer(std::istream &s): 
 		token_line(0), token_lineChar(0), type(tokenUndefined), 
 		token(""), cur_line(1), cur_lineChar(0), cur_char('\0'), stream(s) { charNext();}
@@ -67,13 +65,11 @@ public:
 	int get_lineChar(void) { return token_lineChar;}
 	token_t get_type(void) { return type;}
 	std::string get_token(void) { return token;}
-	pos_t get_pos(void) { return token_pos;}
 private: 
 	int token_line;
 	int token_lineChar;
 	token_t type;
 	std::string token;
-	pos_t token_pos;
 
 	int cur_line, cur_lineChar;
 	char cur_char;
