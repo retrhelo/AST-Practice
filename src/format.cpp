@@ -27,6 +27,7 @@ static void exitDebug(void) {
 
 #define debug_error() \
 	do { \
+		std::cerr << lex.get_line() << ":" << lex.get_lineChar() << ": "; \
 		debug_msg("invalid token " + lex.get_token()); \
 		exitDebug(); \
 		return false; \
@@ -100,9 +101,14 @@ bool Format::formatProgramme(Lexer &lex, int indent) {
 		{
 			stream << lex.get_token() << " ";
 			lex.next();
+			if (lex.get_type() != tokenIdent) 
+				debug_error();
+			stream << lex.get_token() << " ";
+			
+			lex.next();
 			if (lex.get_type() != punctLBrace) 
 				debug_error();
-			stream << lex.get_token();
+			stream << lex.get_token() << "\n";
 			lex.next();
 
 			while (lex.get_type() != punctRBrace) {
@@ -136,7 +142,7 @@ bool Format::formatProgramme(Lexer &lex, int indent) {
 			lex.next();
 			if (lex.get_type() != punctLBrace) 
 				debug_error();
-			stream << "{\n";
+			stream << " {\n";
 			lex.next();
 			while (lex.get_type() != punctRBrace) {
 				for (int i = 0; i < indent + 1; i ++) 
@@ -152,6 +158,15 @@ bool Format::formatProgramme(Lexer &lex, int indent) {
 						break;
 					}
 				}
+			}
+
+			stream << lex.get_token();
+			lex.next();
+			if (lex.get_type() != punctSemicolon) 
+				debug_error();
+			else {
+				stream << ";\n\n";
+				lex.next();
 			}
 		}
 		// var-def | func-def
@@ -172,6 +187,7 @@ bool Format::formatProgramme(Lexer &lex, int indent) {
 				stream << lex.get_token() << std::endl;
 				lex.next();
 				ret = formatComplex(lex, indent + 1);
+				stream << "\n\n";
 			}
 			else {
 				stream << lex.get_token() << std::endl;

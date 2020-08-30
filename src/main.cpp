@@ -80,5 +80,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	istrm.close();
+	ostrm.close();
+
 	return 0;
 }

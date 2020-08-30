@@ -330,7 +330,13 @@ bool Parser::parserComplex(Lexer &lex, int indent) {
 		else if (storageTypeTryMatchNext(lex) ||
 			typeTryMatchNext(lex)) 
 		{
+			// if pointer
+			while (tokenTryMatchNext(lex, punctTimes)) 
+				;
 			typeTryMatchNext(lex);
+			// if pointer
+			while (tokenTryMatchNext(lex, punctTimes)) 
+				;
 			ret = tokenTryMatchNext(lex, tokenIdent) && 
 				parserVarDef(lex, indent + 1);
 		}

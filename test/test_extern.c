@@ -24,7 +24,7 @@ union u {
 
 enum e {
 	ONE, TWO, THREE,
-}
+};
 
 int main(void) {
 	int a;
