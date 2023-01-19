@@ -1,6 +1,6 @@
-# 
+#
 # author: Yiming Liu
-# 
+#
 
 TARGET=test
 
@@ -27,12 +27,9 @@ obj/format.o
 
 default: $(OBJ) build
 	$(CC) $(OBJ) -o build/$(TARGET)
-	
+
 lex: obj/lexer.o obj/lexer_test.o build
 	$(CC) obj/lexer.o obj/lexer_test.o -o build/lexer_test
-
-tag: src inc
-	ctags -R --language-force=C++ src/* inc/*
 
 obj/main.o: src/main.cpp obj
 	$(CC) $(C_FLAGS) src/main.cpp -o obj/main.o
@@ -44,10 +41,10 @@ obj/format.o: src/format.cpp obj
 	$(CC) $(C_FLAGS) src/format.cpp -o obj/format.o
 obj/lexer_test.o: src/lexer_test.cpp obj
 	$(CC) $(C_FLAGS) src/lexer_test.cpp -o obj/lexer_test.o
-build: 
+build:
 	mkdir build
-obj: 
+obj:
 	mkdir obj
 
-clean: 
-	rm -r obj
+clean:
+	rm -r obj build
